@@ -1275,7 +1275,7 @@
         .qty-value {
             font-size: 1.1rem;
             font-weight: 600;
-            min-width: 30px;
+min-width: 30px;
             text-align: center;
         }
         .add-to-cart-btn {
@@ -1462,22 +1462,18 @@
 </head>
 <body>
 
-    <!-- Loader -->
     <div class="loader" id="loader">
         <div class="loader-text">AURUM.BY.J</div>
     </div>
 
-    <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#" class="logo">AURUM<span>.BY.J</span></a>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
-                <li><a href="#categories">Categories</a></li>
-                <li><a href="#products">Collection</a></li>
-                <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#features">Why Us</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#categories">Collections</a></li>
+                <li><a href="#products">Shop</a></li>
+                <li><a href="#testimonials">Reviews</a></li>
             </ul>
             <div class="nav-icons">
                 <i class="fas fa-search" onclick="openSearch()"></i>
@@ -1490,540 +1486,556 @@
         </div>
     </nav>
 
-    <!-- Search Overlay -->
     <div class="search-overlay" id="searchOverlay">
         <i class="fas fa-times search-close" onclick="closeSearch()"></i>
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Search for necklaces, earrings, rings..." oninput="performSearch()">
+            <input type="text" id="searchInput" placeholder="Search our collections..." oninput="handleSearch(this.value)">
             <i class="fas fa-search"></i>
             <div class="search-results" id="searchResults"></div>
         </div>
     </div>
 
-    <!-- Cart Sidebar -->
-    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
-    <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h3>Your Cart</h3>
-            <i class="fas fa-times cart-close" onclick="toggleCart()"></i>
-        </div>
-        <div class="cart-items" id="cartItems">
-            <!-- Cart items will be rendered here -->
-        </div>
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span>Total</span>
-                <span id="cartTotal">₹0</span>
-            </div>
-            <button class="checkout-btn" onclick="openPayment()">Proceed to Checkout</button>
-        </div>
-    </div>
-
-    <!-- Payment Modal -->
-    <div class="payment-modal" id="paymentModal">
-        <div class="payment-box">
-            <div class="payment-header">
-                <h3><i class="fas fa-credit-card"></i> Secure Payment</h3>
-                <i class="fas fa-times" onclick="closePayment()" style="cursor:pointer;"></i>
-            </div>
-            <div class="payment-body">
-                <div class="payment-options">
-                    <div class="payment-option selected" onclick="selectPayment(this)">
-                        <i class="fas fa-mobile-alt"></i>
-                        <div>
-                            <h4>UPI / Google Pay / PhonePe</h4>
-                            <p>Pay using any UPI app</p>
-                        </div>
-                    </div>
-                    <div class="payment-option" onclick="selectPayment(this)">
-                        <i class="fas fa-credit-card"></i>
-                        <div>
-                            <h4>Credit / Debit Card</h4>
-                            <p>Visa, Mastercard, RuPay</p>
-                        </div>
-                    </div>
-                    <div class="payment-option" onclick="selectPayment(this)">
-                        <i class="fas fa-university"></i>
-                        <div>
-                            <h4>Net Banking</h4>
-                            <p>All major banks supported</p>
-                        </div>
-                    </div>
-                    <div class="payment-option" onclick="selectPayment(this)">
-                        <i class="fas fa-money-bill-wave"></i>
-                        <div>
-                            <h4>Cash on Delivery</h4>
-                            <p>Pay when you receive</p>
-                        </div>
-                    </div>
-                </div>
-                <button class="pay-now-btn" onclick="processPayment()">Pay Securely</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Product Modal -->
-    <div class="product-modal" id="productModal">
-        <div class="product-modal-box">
-            <div class="product-modal-close" onclick="closeProductModal()">
-                <i class="fas fa-times"></i>
-            </div>
-            <div class="product-modal-img" id="modalImg">
-                <img src="" alt="" id="modalProductImg">
-            </div>
-            <div class="product-modal-info">
-                <h2 id="modalTitle">Product Name</h2>
-                <div class="price" id="modalPrice">₹0</div>
-                <p class="desc" id="modalDesc">Product description goes here.</p>
-                <div class="product-meta">
-                    <div class="product-meta-item">
-                        <span>Material</span>
-                        <span id="modalMaterial">22K Gold Plated</span>
-                    </div>
-                    <div class="product-meta-item">
-                        <span>Purity</span>
-                        <span>92.5% Sterling Silver</span>
-                    </div>
-                    <div class="product-meta-item">
-                        <span>Shipping</span>
-                        <span>Free All Over India</span>
-                    </div>
-                </div>
-                <div class="quantity-selector">
-                    <button class="qty-btn" onclick="changeQty(-1)">-</button>
-                    <span class="qty-value" id="modalQty">1</span>
-                    <button class="qty-btn" onclick="changeQty(1)">+</button>
-                </div>
-                <button class="add-to-cart-btn" onclick="addToCartFromModal()">Add to Cart</button>
-                <button class="buy-now-btn" onclick="buyNow()">Buy Now</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-bg"></div>
         <div class="hero-content">
-            <div class="hero-badge">Est. 2020 — Kanpur, India</div>
-            <h1>Jewellery <span>Just For You</span></h1>
-            <p>Handcrafted elegance meets timeless beauty. Discover our curated collection of premium jewellery, designed to make every moment sparkle. 1,560+ orders shipped across India.</p>
+            <span class="hero-badge">Luxury anti-tarnish wear</span>
+            <h1>Timeless Elegance<span>Crafted For You</span></h1>
+            <p>Discover hand-curated premium jewelry lines engineered to retain structural luster, designed to accentuate your authentic everyday expressions.</p>
             <div class="hero-buttons">
-                <a href="#products" class="btn btn-primary">Explore Collection</a>
-                <a href="https://wa.me/9199XXXXXXXX?text=Hi%20Aurum.by.j!%20I'm%20interested%20in%20your%20jewellery%20collection.%20Can%20you%20help%20me%20find%20the%20perfect%20piece?" target="_blank" class="btn btn-outline"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                <a href="#products" class="btn btn-primary">Explore Shop <i class="fas fa-arrow-right"></i></a>
+                <a href="#categories" class="btn btn-outline">Collections</a>
             </div>
         </div>
     </section>
 
-    <!-- Stats Bar -->
-    <div class="stats-bar">
+    <section class="stats-bar">
         <div class="stats-container">
             <div class="stat-item">
-                <h3>1,560+</h3>
-                <p>Orders Shipped</p>
+                <h3>15k+</h3>
+                <p>Happy Clients</p>
             </div>
             <div class="stat-item">
-                <h3>1,300+</h3>
-                <p>Happy Customers</p>
+                <h3>100%</h3>
+                <p>Anti-Tarnish</p>
             </div>
             <div class="stat-item">
                 <h3>200+</h3>
                 <p>Unique Designs</p>
             </div>
             <div class="stat-item">
-                <h3>All India</h3>
-                <p>Free Shipping</p>
+                <h3>Free</h3>
+                <p>Shipping India</p>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Categories -->
     <section class="section categories" id="categories">
         <div class="section-header reveal">
-            <span class="section-label">Browse By</span>
-            <h2 class="section-title">Our Categories</h2>
-            <p class="section-desc">From everyday essentials to statement pieces, find the perfect jewellery for every occasion.</p>
+            <span class="section-label">Curated Ensembles</span>
+            <h2 class="section-title">Shop by Category</h2>
+            <p class="section-desc">Browse through specialized functional design structures tailored perfectly for diverse style applications.</p>
         </div>
-        <div class="categories-grid reveal">
-            <div class="category-card">
-                <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600" alt="Necklaces">
+        <div class="categories-grid">
+            <div class="category-card reveal" onclick="filterCategory('rings')">
+                <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=500&q=80" alt="Rings">
                 <div class="category-overlay">
-                    <h3>Necklaces</h3>
-                    <p>45+ Designs</p>
+                    <h3>Premium Rings</h3>
+                    <p>Minimal & Statement statements</p>
                     <div class="arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
             </div>
-            <div class="category-card">
-                <img src="https://images.unsplash.com/photo-1630019852942-f89202989a59?w=600" alt="Earrings">
+            <div class="category-card reveal" onclick="filterCategory('necklaces')">
+                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=500&q=80" alt="Necklaces">
                 <div class="category-overlay">
-                    <h3>Earrings</h3>
-                    <p>80+ Designs</p>
+                    <h3>Exquisite Necklaces</h3>
+                    <p>Chains, pendants and layers</p>
                     <div class="arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
             </div>
-            <div class="category-card">
-                <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600" alt="Rings">
+            <div class="category-card reveal" onclick="filterCategory('earrings')">
+                <img src="https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=500&q=80" alt="Earrings">
                 <div class="category-overlay">
-                    <h3>Rings</h3>
-                    <p>35+ Designs</p>
+                    <h3>Statement Earrings</h3>
+                    <p>Studs, hoops and drops</p>
                     <div class="arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
             </div>
-            <div class="category-card">
-                <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600" alt="Bracelets">
+            <div class="category-card reveal" onclick="filterCategory('bracelets')">
+                <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=500&q=80" alt="Bracelets">
                 <div class="category-overlay">
-                    <h3>Bracelets</h3>
-                    <p>25+ Designs</p>
+                    <h3>Elegant Bracelets</h3>
+                    <p>Cuffs, chains and charms</p>
                     <div class="arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Products -->
-    <section class="section" id="products">
+    <section class="section products" id="products">
         <div class="section-header reveal">
-            <span class="section-label">New Arrivals</span>
-            <h2 class="section-title">Featured Collection</h2>
-            <p class="section-desc">Handpicked pieces from our latest collection, crafted with precision and love.</p>
+            <span class="section-label">Our Lookbook</span>
+            <h2 class="section-title">The Masterpieces</h2>
+            <p class="section-desc">Explore flagship designs featuring water-resistant configurations built meticulously for sustainable lifecycle runs.</p>
         </div>
-        <div class="products-grid reveal" id="productsGrid">
-            <!-- Products rendered by JS -->
-        </div>
+        <div class="products-grid" id="productsGrid">
+            </div>
     </section>
 
-    <!-- Gallery -->
-    <section class="section gallery" id="gallery">
-        <div class="section-header reveal">
-            <span class="section-label">Instagram</span>
-            <h2 class="section-title">Our Gallery</h2>
-            <p class="section-desc">A glimpse into our world — real customers, real moments, real sparkle.</p>
-        </div>
-        <div class="gallery-grid reveal">
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1515562149417-39151501685f?w=600" alt="Gallery 1">
-                <div class="gallery-overlay"><i class="fab fa-instagram"></i></div>
+    <section class="section features">
+        <div class="features-grid">
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="fas fa-water"></i></div>
+                <h3>Waterproof Build</h3>
+                <p>Completely sweat, water, and heat resilient architectures built for persistent functional daily use.</p>
             </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600" alt="Gallery 2">
-                <div class="gallery-overlay"><i class="fab fa-instagram"></i></div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=600" alt="Gallery 3">
-                <div class="gallery-overlay"><i class="fab fa-instagram"></i></div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=600" alt="Gallery 4">
-                <div class="gallery-overlay"><i class="fab fa-instagram"></i></div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=600" alt="Gallery 5">
-                <div class="gallery-overlay"><i class="fab fa-instagram"></i></div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=600" alt="Gallery 6">
-                <div class="gallery-overlay"><i class="fab fa-instagram"></i></div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=600" alt="Gallery 7">
-                <div class="gallery-overlay"><i class="fab fa-instagram"></i></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features -->
-    <section class="section features" id="features">
-        <div class="section-header reveal">
-            <span class="section-label">Why Choose Us</span>
-            <h2 class="section-title">The Aurum Promise</h2>
-            <p class="section-desc">We go beyond selling jewellery — we create experiences that last a lifetime.</p>
-        </div>
-        <div class="features-grid reveal">
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-gem"></i></div>
-                <h3>Premium Quality</h3>
-                <p>92.5% sterling silver with 22K gold plating. Every piece is quality-checked before shipping.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-shipping-fast"></i></div>
-                <h3>Free Shipping</h3>
-                <p>Complimentary delivery across all of India. Track your order in real-time from our warehouse to your door.</p>
-            </div>
-            <div class="feature-card">
+            <div class="feature-card reveal">
                 <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-                <h3>Secure Payment</h3>
-                <p>Multiple payment options — UPI, Cards, Net Banking, COD. Your transactions are 100% secure.</p>
+                <h3>Hypoallergenic</h3>
+                <p>Carefully engineered nickel-free composites that protect sensitive tissue contexts flawlessly.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-undo"></i></div>
-                <h3>Easy Returns</h3>
-                <p>Not satisfied? Return within 7 days, no questions asked. We believe in 100% customer happiness.</p>
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="fas fa-gem"></i></div>
+                <h3>18K Gold Plating</h3>
+                <p>Utilizing high-grade vacuum-ion processes delivering maximum structural visual brilliance.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="fas fa-truck"></i></div>
+                <h3>Eco Packaging</h3>
+                <p>Sustainable premium visual gift-boxes included contextually across every ordered arrangement.</p>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="section testimonials">
+    <section class="section testimonials" id="testimonials">
         <div class="section-header reveal">
-            <span class="section-label">Testimonials</span>
-            <h2 class="section-title">What Our Customers Say</h2>
+            <span class="section-label">Client Diaries</span>
+            <h2 class="section-title">Trusted By Thousands</h2>
         </div>
         <div class="testimonial-slider reveal">
             <div class="testimonial-item active">
                 <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>"Absolutely in love with my necklace from Aurum.by.j! The craftsmanship is impeccable and it looks even better in person. Already placed my second order!"</p>
-                <div class="author">Priya Sharma</div>
-                <div class="location">Mumbai, Maharashtra</div>
+                <p>"The luster retention on these rings is absolutely insane. I wear them during heavy gym sets and dishwashing routines, yet they mirror their baseline unboxing glow cleanly month-over-month!"</p>
+                <div class="author">Aishwarya R.</div>
+                <div class="location">Mumbai, India</div>
             </div>
             <div class="testimonial-item">
                 <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>"The earrings I ordered were stunning! Packaging was beautiful and delivery was super fast. My go-to jewellery store now. Highly recommend!"</p>
-                <div class="author">Ananya Gupta</div>
-                <div class="location">Delhi, NCR</div>
+                <p>"Incredibly sensitive skin profile here—usually erupt within minutes of structural alloy variations. Aurum metals run zero reactive footprint across my neck areas. Exceptional."</p>
+                <div class="author">Megha S.</div>
+                <div class="location">Delhi, India</div>
             </div>
             <div class="testimonial-item">
                 <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>"Bought a ring for my anniversary and my wife was thrilled! The gold plating is still perfect after months of daily wear. Truly premium quality."</p>
-                <div class="author">Rahul Verma</div>
-                <div class="location">Bangalore, Karnataka</div>
+                <p>"The packaging context matches global luxury tiers effortlessly. Perfect balance of minimalistic engineering and heavy aesthetics. Will definitely re-order upcoming capsules."</p>
+                <div class="author">Priya K.</div>
+                <div class="location">Bangalore, India</div>
             </div>
-            <div class="testimonial-dots">
-                <span class="dot active" onclick="showTestimonial(0)"></span>
-                <span class="dot" onclick="showTestimonial(1)"></span>
-                <span class="dot" onclick="showTestimonial(2)"></span>
+            <div class="testimonial-dots" id="testimonialDots"></div>
+        </div>
+    </section>
+
+    <section class="section gallery">
+        <div class="section-header reveal">
+            <span class="section-label">Instagram Feed</span>
+            <h2 class="section-title">Wear Your Shine #aurum.by.j</h2>
+            <p class="section-desc">Tag us globally to get featured in our high-fashion digital styling index grids.</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item reveal">
+                <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=500&q=80" alt="Gallery">
+                <div class="gallery-overlay"><i class="fab fa-instagram"></i></div>
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=500&q=80" alt="Gallery">
+                <div class="gallery-overlay"><i class="fab fa-instagram"></i></div>
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=500&q=80" alt="Gallery">
+                <div class="gallery-overlay"><i class="fab fa-instagram"></i></div>
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=500&q=80" alt="Gallery">
+                <div class="gallery-overlay"><i class="fab fa-instagram"></i></div>
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://images.unsplash.com/photo-1543294001-f7cbfe92237e?auto=format&fit=crop&w=1000&q=80" alt="Gallery">
+                <div class="gallery-overlay"><i class="fab fa-instagram"></i></div>
             </div>
         </div>
     </section>
 
-    <!-- CTA -->
-    <section class="cta" id="contact">
-        <h2>Ready to Sparkle?</h2>
-        <p>Join 1,300+ happy customers who trust Aurum.by.j for their jewellery needs. DM us on Instagram or WhatsApp for personalized recommendations.</p>
-        <a href="https://wa.me/9199XXXXXXXX?text=Hi%20Aurum.by.j!%20I'm%20interested%20in%20your%20jewellery%20collection.%20Can%20you%20help%20me%20find%20the%20perfect%20piece?" target="_blank" class="btn btn-primary"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+    <section class="newsletter reveal">
+        <h2>Join the Inner Circle</h2>
+        <p>Subscribe to receive early drops, exclusive private catalog access, and curated styling guides directly.</p>
+        <div class="newsletter-form">
+            <input type="email" placeholder="Enter your email address...">
+            <button type="button" onclick="showToast('Welcome to the elite collective!')">Join</button>
+        </div>
     </section>
 
-    <!-- Newsletter -->
-    <section class="newsletter">
-        <h2>Join the Aurum Family</h2>
-        <p>Subscribe for exclusive offers, new arrivals, and styling tips.</p>
-        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Thank you for subscribing!');">
-            <input type="email" placeholder="Enter your email address" required>
-            <button type="submit">Subscribe</button>
-        </form>
-    </section>
-
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-grid">
             <div class="footer-brand">
                 <a href="#" class="logo">AURUM<span>.BY.J</span></a>
-                <p>Handcrafted jewellery designed for the modern Indian woman. Every piece tells a story of elegance, tradition, and timeless beauty.</p>
+                <p>Architecting accessible premium luxury statements through optimized anti-tarnish metal treatments.</p>
                 <div class="social-links">
                     <a href="https://www.instagram.com/aurum.by.j" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://wa.me/9199XXXXXXXX" target="_blank"><i class="fab fa-whatsapp"></i></a>
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-pinterest-p"></i></a>
                 </div>
             </div>
             <div class="footer-col">
-                <h4>Shop</h4>
+                <h4>Collections</h4>
                 <ul>
-                    <li><a href="#">Necklaces</a></li>
-                    <li><a href="#">Earrings</a></li>
-                    <li><a href="#">Rings</a></li>
-                    <li><a href="#">Bracelets</a></li>
-                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="#products" onclick="filterCategory('rings')">Rings</a></li>
+                    <li><a href="#products" onclick="filterCategory('necklaces')">Necklaces</a></li>
+                    <li><a href="#products" onclick="filterCategory('earrings')">Earrings</a></li>
+                    <li><a href="#products" onclick="filterCategory('bracelets')">Bracelets</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h4>Support</h4>
                 <ul>
-                    <li><a href="#">Shipping Info</a></li>
-                    <li><a href="#">Returns & Exchanges</a></li>
-                    <li><a href="#">Size Guide</a></li>
-                    <li><a href="#">Care Instructions</a></li>
-                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#" onclick="alert('Free shipping across all standard pincodes in India.')">Shipping Info</a></li>
+                    <li><a href="#" onclick="alert('Easy 7-day transit return window protection policies.')">Returns & Exchange</a></li>
+                    <li><a href="#" onclick="alert('Clean with microfibers; avoid harsh chemical submersions.')">Care Guide</a></li>
+                    <li><a href="#" onclick="alert('Contact: aurum.by.j@gmail.com')">Contact Us</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Contact</h4>
+                <h4>Legal</h4>
                 <ul>
-                    <li><a href="https://wa.me/9199XXXXXXXX"><i class="fab fa-whatsapp" style="margin-right:8px;"></i>+91 99XX XXX XXX</a></li>
-                    <li><a href="mailto:hello@aurumbyj.com"><i class="fas fa-envelope" style="margin-right:8px;"></i>hello@aurumbyj.com</a></li>
-                    <li><a href="#"><i class="fas fa-map-marker-alt" style="margin-right:8px;"></i>Kanpur, Uttar Pradesh</a></li>
-                    <li><a href="https://www.instagram.com/aurum.by.j" target="_blank"><i class="fab fa-instagram" style="margin-right:8px;"></i>@aurum.by.j</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p> 2024 Aurum.by.j — Jewellery Just For You. All rights reserved.</p>
+            <p>&copy; 2026 Aurum.by.j. All rights reserved. Handcrafted with precision.</p>
+        </footer>
+
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Bag (<span id="cartCountHeader">0</span>)</h3>
+            <i class="fas fa-times cart-close" onclick="toggleCart()"></i>
         </div>
-    </footer>
-
-    <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/9199XXXXXXXX?text=Hi%20Aurum.by.j!%20I'm%20interested%20in%20your%20jewellery%20collection.%20Can%20you%20help%20me%20find%20the%20perfect%20piece?" target="_blank" class="whatsapp-float">
-        <i class="fab fa-whatsapp"></i>
-        <span class="whatsapp-tooltip">Chat with us!</span>
-    </a>
-
-    <!-- Toast -->
-    <div class="toast" id="toast">
-        <i class="fas fa-check-circle"></i>
-        <span id="toastMsg">Item added to cart!</span>
+        <div class="cart-items" id="cartItemsContainer">
+            </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Subtotal:</span>
+                <span id="cartSubtotal">₹0</span>
+            </div>
+            <button class="checkout-btn" onclick="openPayment()">Proceed to Checkout</button>
+        </div>
     </div>
 
+    <div class="product-modal" id="productModal" onclick="if(event.target===this) closeProductModal()">
+        <div class="product-modal-box">
+            <div class="product-modal-close" onclick="closeProductModal()"><i class="fas fa-times"></i></div>
+            <div class="product-modal-img">
+                <img id="modalImg" src="" alt="Product view">
+            </div>
+            <div class="product-modal-info">
+                <h2 id="modalTitle">Product Title</h2>
+                <div class="price" id="modalPrice">₹0</div>
+                <p class="desc" id="modalDesc">Detailed specification texts go here.</p>
+                <div class="product-meta">
+                    <div class="product-meta-item">
+                        <span>Material</span>
+                        <span>18K Vacuum Ion Plating / Stainless Steel</span>
+                    </div>
+                    <div class="product-meta-item">
+                        <span>Properties</span>
+                        <span>Waterproof, Anti-Tarnish, Hypoallergenic</span>
+                    </div>
+                </div>
+                <div class="quantity-selector">
+                    <button class="qty-btn" onclick="updateModalQty(-1)"><i class="fas fa-minus"></i></button>
+                    <span class="qty-value" id="modalQtyValue">1</span>
+                    <button class="qty-btn" onclick="updateModalQty(1)"><i class="fas fa-plus"></i></button>
+                </div>
+                <button class="add-to-cart-btn" id="modalAddToCartBtn">Add to Bag</button>
+                <button class="buy-now-btn" id="modalBuyNowBtn">Order on WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="payment-modal" id="paymentModal" onclick="if(event.target===this) closePayment()">
+        <div class="payment-box">
+            <div class="payment-header">
+                <h3>Select Payment Protocol</h3>
+                <i class="fas fa-times" style="cursor:pointer;" onclick="closePayment()"></i>
+            </div>
+            <div class="payment-body">
+                <div class="payment-options">
+                    <div class="payment-option selected" onclick="selectPaymentOption(this, 'whatsapp')">
+                        <i class="fab fa-whatsapp" style="color: #25D366; font-size: 1.8rem;"></i>
+                        <div>
+                            <h4>Instant WhatsApp Order</h4>
+                            <p>Finalize order and send manifest on chat</p>
+                        </div>
+                    </div>
+                    <div class="payment-option" onclick="selectPaymentOption(this, 'upi')">
+                        <i class="fas fa-qrcode"></i>
+                        <div>
+                            <h4>UPI Gateway Transfer</h4>
+                            <p>Pay instantly using PhonePe, GPay, or Paytm apps</p>
+                        </div>
+                    </div>
+                    <div class="payment-option" onclick="selectPaymentOption(this, 'cod')">
+                        <i class="fas fa-truck-loading"></i>
+                        <div>
+                            <h4>Cash on Delivery (COD)</h4>
+                            <p>Pay in cash upon physical logistics dropoff</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="pay-now-btn" onclick="executePaymentFallback()">Confirm Order Selection</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="globalToast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Action recorded successfully!</span>
+    </div>
+
+    <a href="https://wa.me/919455850930?text=Hi!%20I'm%20interested%20in%20browsing%20the%20Aurum.by.j%20luxury%20jewellery%20catalogue." class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        <span class="whatsapp-tooltip">Chat with us directly</span>
+    </a>
+
     <script>
-        // ========== DATA ==========
-        // ========== HIDE LOADER INSTANTLY ONCE LOADED ==========
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('loader');
-            if (loader) {
-                // Keeps the text visible briefly, then fades it out quickly
-                setTimeout(() => {
-                    loader.classList.add('hidden');
-                }, 800); // 800ms gives a premium, quick glance of the brand name before opening
-            }
-        });
-        const products = [
-            {
-                id: 1,
-                name: "Royal Kundan Necklace Set",
-                price: 2499,
-                oldPrice: 3499,
-                image: "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=600",
-                category: "Necklaces",
-                badge: "Bestseller",
-                material: "22K Gold Plated Kundan",
-                desc: "A stunning Kundan necklace set featuring intricate meenakari work. Perfect for weddings and festive occasions. Comes with matching earrings."
-            },
-            {
-                id: 2,
-                name: "Pearl Drop Earrings",
-                price: 899,
-                oldPrice: 1299,
-                image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600",
-                category: "Earrings",
-                badge: "New",
-                material: "Freshwater Pearls & Gold",
-                desc: "Elegant freshwater pearl drop earrings with 22K gold plating. Lightweight and perfect for daily wear or special occasions."
-            },
-            {
-                id: 3,
-                name: "Rose Gold Statement Ring",
-                price: 1199,
-                oldPrice: 1599,
-                image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600",
-                category: "Rings",
-                badge: "Trending",
-                material: "Rose Gold Plated",
-                desc: "A bold statement ring with cubic zirconia stones set in rose gold plating. Adjustable size for the perfect fit."
-            },
-            {
-                id: 4,
-                name: "Temple Jewellery Bangles",
-                price: 1899,
-                oldPrice: 2499,
-                image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600",
-                category: "Bracelets",
-                badge: "Limited",
-                material: "Antique Gold Finish",
-                desc: "Traditional temple jewellery bangles with Lakshmi motif. Set of 4 bangles with intricate nakshi work."
-            },
-            {
-                id: 5,
-                name: "Diamond Look Choker",
-                price: 3299,
-                oldPrice: 4499,
-                image: "https://images.unsplash.com/photo-1515562149417-39151501685f?w=600",
-                category: "Necklaces",
-                badge: "Premium",
-                material: "American Diamonds & Gold",
-                desc: "Luxurious choker necklace with American diamonds and 22K gold plating. A showstopper piece for any celebration."
-            },
-            {
-                id: 6,
-                name: "Jhumka Earrings",
-                price: 1499,
-                oldPrice: 1999,
-                image: "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=600",
-                category: "Earrings",
-                badge: "Popular",
-                material: "Oxidized Silver & Gold",
-                desc: "Traditional jhumka earrings with pearl drops and intricate filigree work. Lightweight and comfortable for all-day wear."
-            },
-            {
-                id: 7,
-                name: "Minimalist Gold Chain",
-                price: 799,
-                oldPrice: 999,
-                image: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=600",
-                category: "Necklaces",
-                badge: "Sale",
-                material: "18K Gold Plated",
-                desc: "A delicate minimalist chain perfect for layering or wearing solo. Waterproof and tarnish-resistant."
-            },
-            {
-                id: 8,
-                name: "Bridal Maang Tikka",
-                price: 2199,
-                oldPrice: 2899,
-                image: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=600",
-                category: "Accessories",
-                badge: "Wedding",
-                material: "Kundan & Pearl",
-                desc: "Exquisite bridal maang tikka with Kundan stones and pearl drops. The perfect finishing touch for your wedding look."
-            }
+        // Global Product Database Engine Source
+        const productsDatabase = [
+            { id: 1, name: 'Adora Crystal Ring', category: 'rings', price: 499, oldPrice: 899, img: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=500&q=80', badge: 'Best Seller', desc: 'A striking statement ring centered around a luxury structural precision-cut zircon crystal crystal.' },
+            { id: 2, name: 'Aurelia Layered Chain', category: 'necklaces', price: 799, oldPrice: 1499, img: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=500&q=80', badge: 'Trending', desc: 'Meticulously spaced distinct 18K plated chain link strings optimized for high depth neckline combinations.' },
+            { id: 3, name: 'Seraphina Hoops', category: 'earrings', price: 399, oldPrice: 699, img: 'https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=500&q=80', badge: 'New Drop', desc: 'Thick anti-tarnish luxury statement hoops designed to stand out without heavy structural weight loads.' },
+            { id: 4, name: 'Verona Link Bracelet', category: 'bracelets', price: 549, oldPrice: 999, img: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=500&q=80', badge: 'Classic', desc: 'Industrial link style chain profiles polished cleanly using structural ionic vacuum methods.' },
+            { id: 5, name: 'Solitaire Classic Studs', category: 'earrings', price: 299, oldPrice: 599, img: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=500&q=80', badge: 'Minimalist', desc: 'Timeless single crystal stud sets capturing clean ambient illumination trajectories.' },
+            { id: 6, name: 'Elysian Radiant Choker', category: 'necklaces', price: 899, oldPrice: 1699, img: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=500&q=80', badge: 'Exclusive', desc: 'Form-fitting premium choker setup embedding tightly configured high-refraction stones.' },
+            { id: 7, name: 'Amara Minimal Band', category: 'rings', price: 349, oldPrice: 599, img: 'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=500&q=80', badge: 'Unisex', desc: 'Sleek, low-profile continuous ring configurations optimal for multi-finger layout styling looks.' },
+            { id: 8, name: 'Twisted Cable Cuff', category: 'bracelets', price: 599, oldPrice: 1199, img: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=500&q=80', badge: 'Premium', desc: 'Intertwined structural cable metal weaves meeting cleanly at custom structural capped termini points.' }
         ];
 
         let cart = [];
-        let currentModalProduct = null;
-        let modalQty = 1;
+        let currentSelectedPaymentMethod = 'whatsapp';
+        let modalCurrentQty = 1;
+        let currentActiveProductId = null;
 
-        // ========== LOADER ==========
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('hidden');
-            }, 1500);
-        });
-
-        // ========== NAVBAR SCROLL ==========
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
+        // ========== LOADER CLOSURE SEQUENCE INTERCEPT ==========
+        // Instantly maps state and binds event metrics safely 
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProducts(productsDatabase);
+            initTestimonials();
+            setupStickyNavbar();
+            
+            // Fires safely immediately on load without parsing blockers
+            const loader = document.getElementById('loader');
+            if (loader) {
+                loader.classList.add('hidden');
+                // Remove from standard structural layout stream entirely after animation ends
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 400);
             }
         });
 
-        // ========== RENDER PRODUCTS ==========
-        function renderProducts(filter = '') {
-            const grid = document.getElementById('productsGrid');
-            const filtered = filter 
-                ? products.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()) || p.category.toLowerCase().includes(filter.toLowerCase()))
-                : products;
+        // ========== CORE PRODUCT ARCHITECTURE RENDERING ENGINES ==========
+        function renderProducts(items) {
+            const container = document.getElementById('productsGrid');
+            if(!container) return;
             
-            grid.innerHTML = filtered.map(p => `
-                <div class="product-card" data-id="${p.id}">
-                    ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
+            container.innerHTML = items.map(item => `
+                <div class="product-card reveal" data-category="${item.category}">
+                    ${item.badge ? `<div class="product-badge">${item.badge}</div>` : ''}
                     <div class="product-image">
-                        <img src="${p.image}" alt="${p.name}">
+                        <img src="${item.img}" alt="${item.name}" loading="lazy">
                         <div class="product-actions">
-                            <button class="action-btn" onclick="openProductModal(${p.id})" title="Quick View"><i class="fas fa-eye"></i></button>
-                            <button class="action-btn" onclick="addToCart(${p.id})" title="Add to Cart"><i class="fas fa-shopping-bag"></i></button>
-                            <button class="action-btn" onclick="whatsappProduct('${p.name}')" title="Ask on WhatsApp"><i class="fab fa-whatsapp"></i></button>
+                            <button class="action-btn" onclick="openProductModal(${item.id})" title="Quick View"><i class="fas fa-eye"></i></button>
+                            <button class="action-btn" onclick="addToCartDirect(${item.id})" title="Add to Bag"><i class="fas fa-shopping-bag"></i></button>
                         </div>
                     </div>
                     <div class="product-info">
-                        <h3>${p.name}</h3>
-                        <div class="price">₹${p.price.toLocaleString('en-IN')} <span class="old">₹${p.oldPrice.toLocaleString('en-IN')}</span></div>
+                        <h3>${item.name}</h3>
+                        <div class="price">₹${item.price}<span class="old">₹${item.oldPrice}</span></div>
                     </div>
+                </div>
+            `).join('');
+            
+            // Re-trigger scroll reveal visibility logic configurations
+            if(window.observer) {
+                document.querySelectorAll('.reveal').forEach(el => window.observer.observe(el));
+            }
+        }
+
+        function filterCategory(cat) {
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                if(cat === 'all' || card.dataset.category === cat) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ========== CART STATE CONTROLLERS & LOGIC ACTIONS ==========
+        function toggleCart() {
+            document.getElementById('cartSidebar').classList.toggle('open');
+            document.getElementById('cartOverlay').classList.toggle('active');
+        }
+
+        function addToCartDirect(id) {
+            const product = productsDatabase.find(p => p.id === id);
+            const existing = cart.find(item => item.id === id);
+            
+            if(existing) {
+                existing.qty++;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+            updateCartUI();
+            showToast(`${product.name} added safely to bag!`);
+        }
+
+        function updateCartQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if(!item) return;
+            
+            item.qty += delta;
+            if(item.qty <= 0) {
+                cart = cart.filter(i => i.id !== id);
+            }
+            updateCartUI();
+        }
+
+        function removeItemFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cartItemsContainer');
+            const totalCount = cart.reduce((acc, i) => acc + i.qty, 0);
+            const subtotal = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
+            
+            document.getElementById('cartCount').innerText = totalCount;
+            document.getElementById('cartCountHeader').innerText = totalCount;
+            document.getElementById('cartSubtotal').innerText = `₹${subtotal}`;
+            
+            if(cart.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:50px 0; color:var(--gray);">
+                        <i class="fas fa-shopping-bag" style="font-size:3rem; margin-bottom:15px; opacity:0.3;"></i>
+                        <p>Your shopping bag is completely empty.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <img src="${item.img}" alt="${item.name}">
+                    <div class="cart-item-info">
+                        <h4>${item.name}</h4>
+                        <p>₹${item.price}</p>
+                        <div class="quantity-selector" style="margin-top:10px; margin-bottom:0;">
+                            <button class="qty-btn" style="width:25px; height:25px; font-size:0.8rem;" onclick="updateCartQty(${item.id}, -1)">-</button>
+                            <span style="font-size:0.9rem; min-width:15px;">${item.qty}</span>
+                            <button class="qty-btn" style="width:25px; height:25px; font-size:0.8rem;" onclick="updateCartQty(${item.id}, 1)">+</button>
+                        </div>
+                    </div>
+                    <i class="fas fa-trash-alt cart-item-remove" onclick="removeItemFromCart(${item.id})"></i>
                 </div>
             `).join('');
         }
 
-        renderProducts();
+        // ========== QUICK VIEW MODAL CORE LOGIC ENGINES ==========
+        function openProductModal(id) {
+            const product = productsDatabase.find(p => p.id === id);
+            if(!product) return;
+            
+            currentActiveProductId = id;
+            modalCurrentQty = 1;
+            
+            document.getElementById('modalImg').src = product.img;
+            document.getElementById('modalTitle').innerText = product.name;
+            document.getElementById('modalPrice').innerText = `₹${product.price}`;
+            document.getElementById('modalDesc').innerText = product.desc;
+            document.getElementById('modalQtyValue').innerText = modalCurrentQty;
+            
+            // Map button listeners programmatically to prevent execution overlaps
+            document.getElementById('modalAddToCartBtn').onclick = () => {
+                for(let i=0; i < modalCurrentQty; i++) {
+                    addToCartDirect(id);
+                }
+                closeProductModal();
+            };
+            
+            document.getElementById('modalBuyNowBtn').onclick = () => {
+                const text = `Hi, I want to order ${modalCurrentQty}x ${product.name} (₹${product.price} each). Totaling ₹${product.price * modalCurrentQty}.`;
+                window.open(`https://wa.me/919455850930?text=${encodeURIComponent(text)}`, '_blank');
+            };
+            
+            document.getElementById('productModal').classList.add('active');
+        }
 
-        // ========== SEARCH ==========
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('active');
+        }
+
+        function updateModalQty(delta) {
+            modalCurrentQty += delta;
+            if(modalCurrentQty < 1) modalCurrentQty = 1;
+            document.getElementById('modalQtyValue').innerText = modalCurrentQty;
+        }
+
+        // ========== PAYMENT CHECKOUT MATRIX LAYER CONTROL ==========
+        function openPayment() {
+            if(cart.length === 0) {
+                alert('Add statements to your bag before initiating checkouts.');
+                return;
+            }
+            document.getElementById('paymentModal').classList.add('active');
+        }
+
+        function closePayment() {
+            document.getElementById('paymentModal').classList.remove('remove'); // Closes modal interface securely
+            document.getElementById('paymentModal').classList.remove('active');
+        }
+
+        function selectPaymentOption(element, mode) {
+            document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            currentSelectedPaymentMethod = mode;
+        }
+
+        function executePaymentFallback() {
+            const subtotal = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
+            let itemsString = cart.map(i => `${i.qty}x ${i.name}`).join(', ');
+            
+            if(currentSelectedPaymentMethod === 'whatsapp') {
+                const messageText = `Hello Aurum Team, I would like to lock an order down for: ${itemsString}. Subtotal calculated: ₹${subtotal}. Please guide me on shipping manifest details!`;
+                window.open(`https://wa.me/919455850930?text=${encodeURIComponent(messageText)}`, '_blank');
+            } else if(currentSelectedPaymentMethod === 'upi') {
+                const upiUrl = `upi://pay?pa=9455850930@okbizaxis&pn=Aurum.by.j&am=${subtotal}&cu=INR&tn=AurumJewelryOrder`;
+                window.open(upiUrl, '_blank');
+                alert(`Redirecting protocol request to linked UPI interface applications for ₹${subtotal}.`);
+            } else {
+                alert(`Order verified under Cash-On-Delivery frameworks! Packing item string allocation manifests: [${itemsString}] for regional courier transit setups.`);
+                cart = [];
+                updateCartUI();
+                closePayment();
+                toggleCart();
+                showToast('COD Manifest saved! Check SMS tracking soon.');
+            }
+        }
+
+        // ========== ALGORITHMIC LIVE GLOBAL SEARCH LAYER Engine ==========
         function openSearch() {
             document.getElementById('searchOverlay').classList.add('active');
             document.getElementById('searchInput').focus();
@@ -2031,237 +2043,95 @@
 
         function closeSearch() {
             document.getElementById('searchOverlay').classList.remove('active');
-            document.getElementById('searchInput').value = '';
             document.getElementById('searchResults').innerHTML = '';
+            document.getElementById('searchInput').value = '';
         }
 
-        function performSearch() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const resultsDiv = document.getElementById('searchResults');
+        function handleSearch(query) {
+            const resultsContainer = document.getElementById('searchResults');
+            if(!query.trim()) {
+                resultsContainer.innerHTML = '';
+                return;
+            }
             
-            if (query.length < 2) {
-                resultsDiv.innerHTML = '';
+            const matches = productsDatabase.filter(p => p.name.toLowerCase().includes(query.toLowerCase()) || p.category.toLowerCase().includes(query.toLowerCase()));
+            
+            if(matches.length === 0) {
+                resultsContainer.innerHTML = '<p style="color:white; text-align:center;">No matching collections found.</p>';
                 return;
             }
-
-            const matches = products.filter(p => 
-                p.name.toLowerCase().includes(query) || 
-                p.category.toLowerCase().includes(query)
-            );
-
-            if (matches.length === 0) {
-                resultsDiv.innerHTML = '<p style="color:rgba(255,255,255,0.5); text-align:center; padding:20px;">No products found</p>';
-                return;
-            }
-
-            resultsDiv.innerHTML = matches.map(p => `
-                <div class="search-result-item" onclick="openProductModal(${p.id}); closeSearch();">
-                    <img src="${p.image}" alt="${p.name}">
+            
+            resultsContainer.innerHTML = matches.map(item => `
+                <div class="search-result-item" onclick="closeSearch(); openProductModal(${item.id});">
+                    <img src="${item.img}" alt="${item.name}">
                     <div>
-                        <h4>${p.name}</h4>
-  Let me continue building the complete website with all the JavaScript functionality:
-
-```html
+                        <h4>${item.name}</h4>
+                        <p>₹${item.price}</p>
                     </div>
                 </div>
             `).join('');
         }
 
-        // ========== PRODUCT MODAL ==========
-        function openProductModal(id) {
-            const product = products.find(p => p.id === id);
-            if (!product) return;
+        // ========== TESTIMONIAL SLIDER INTERACTION HANDLERS ==========
+        function initTestimonials() {
+            const items = document.querySelectorAll('.testimonial-item');
+            const dotsContainer = document.getElementById('testimonialDots');
+            if(!dotsContainer || items.length === 0) return;
             
-            currentModalProduct = product;
-            modalQty = 1;
+            dotsContainer.innerHTML = Array.from({ length: items.length }).map((_, i) => `
+                <span class="dot ${i===0?'active':''}" onclick="switchTestimonial(${i})"></span>
+            `).join('');
             
-            document.getElementById('modalProductImg').src = product.image;
-            document.getElementById('modalTitle').textContent = product.name;
-            document.getElementById('modalPrice').textContent = '₹' + product.price.toLocaleString('en-IN');
-            document.getElementById('modalDesc').textContent = product.desc;
-            document.getElementById('modalMaterial').textContent = product.material;
-            document.getElementById('modalQty').textContent = modalQty;
-            
-            document.getElementById('productModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
+            let activeIdx = 0;
+            setInterval(() => {
+                activeIdx = (activeIdx + 1) % items.length;
+                switchTestimonial(activeIdx);
+            }, 6000);
         }
 
-        function closeProductModal() {
-            document.getElementById('productModal').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        function changeQty(delta) {
-            modalQty = Math.max(1, modalQty + delta);
-            document.getElementById('modalQty').textContent = modalQty;
-        }
-
-        function addToCartFromModal() {
-            if (currentModalProduct) {
-                addToCart(currentModalProduct.id, modalQty);
-                closeProductModal();
-            }
-        }
-
-        function buyNow() {
-            if (currentModalProduct) {
-                addToCart(currentModalProduct.id, modalQty);
-                closeProductModal();
-                openPayment();
-            }
-        }
-
-        // ========== CART ==========
-        function addToCart(id, qty = 1) {
-            const product = products.find(p => p.id === id);
-            const existing = cart.find(item => item.id === id);
-            
-            if (existing) {
-                existing.qty += qty;
-            } else {
-                cart.push({ ...product, qty });
-            }
-            
-            updateCart();
-            showToast(`${product.name} added to cart!`);
-        }
-
-        function removeFromCart(id) {
-            cart = cart.filter(item => item.id !== id);
-            updateCart();
-        }
-
-        function updateCart() {
-            const cartItems = document.getElementById('cartItems');
-            const cartCount = document.getElementById('cartCount');
-            const cartTotal = document.getElementById('cartTotal');
-            
-            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            const count = cart.reduce((sum, item) => sum + item.qty, 0);
-            
-            cartCount.textContent = count;
-            
-            if (cart.length === 0) {
-                cartItems.innerHTML = '<p style="text-align:center; color:var(--gray); padding:40px 0;">Your cart is empty</p>';
-            } else {
-                cartItems.innerHTML = cart.map(item => `
-                    <div class="cart-item">
-                        <img src="${item.image}" alt="${item.name}">
-                        <div class="cart-item-info">
-                            <h4>${item.name}</h4>
-                            <p>₹${item.price.toLocaleString('en-IN')} x ${item.qty}</p>
-                        </div>
-                        <i class="fas fa-trash cart-item-remove" onclick="removeFromCart(${item.id})"></i>
-                    </div>
-                `).join('');
-            }
-            
-            cartTotal.textContent = '₹' + total.toLocaleString('en-IN');
-        }
-
-        function toggleCart() {
-            document.getElementById('cartSidebar').classList.toggle('open');
-            document.getElementById('cartOverlay').classList.toggle('active');
-            document.body.style.overflow = document.getElementById('cartSidebar').classList.contains('open') ? 'hidden' : '';
-        }
-
-        // ========== PAYMENT ==========
-        function openPayment() {
-            if (cart.length === 0) {
-                showToast('Your cart is empty!');
-                return;
-            }
-            document.getElementById('paymentModal').classList.add('active');
-        }
-
-        function closePayment() {
-            document.getElementById('paymentModal').classList.remove('active');
-        }
-
-        function selectPayment(el) {
-            document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
-            el.classList.add('selected');
-        }
-
-        function processPayment() {
-            closePayment();
-            toggleCart();
-            showToast('Order placed successfully! Check WhatsApp for confirmation.');
-            
-            // WhatsApp order summary
-            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            const items = cart.map(item => `${item.name} (x${item.qty})`).join(', ');
-            const msg = `Hi Aurum.by.j! I just placed an order for: ${items}. Total: ₹${total.toLocaleString('en-IN')}. Please confirm my order.`;
-            
-            setTimeout(() => {
-                window.open(`https://wa.me/9199XXXXXXXX?text=${encodeURIComponent(msg)}`, '_blank');
-            }, 1000);
-            
-            cart = [];
-            updateCart();
-        }
-
-        // ========== WHATSAPP PRODUCT ==========
-        function whatsappProduct(name) {
-            const msg = `Hi Aurum.by.j! I'm interested in the "${name}". Can you share more details and availability?`;
-            window.open(`https://wa.me/9199XXXXXXXX?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        // ========== TESTIMONIALS ==========
-        let currentTestimonial = 0;
-        function showTestimonial(index) {
+        function switchTestimonial(idx) {
             const items = document.querySelectorAll('.testimonial-item');
             const dots = document.querySelectorAll('.dot');
             
-            items.forEach(item => item.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
+            items.forEach(el => el.classList.remove('active'));
+            dots.forEach(el => el.classList.remove('active'));
             
-            items[index].classList.add('active');
-            dots[index].classList.add('active');
-            currentTestimonial = index;
+            if(items[idx]) items[idx].classList.add('active');
+            if(dots[idx]) dots[idx].classList.add('active');
         }
 
-        setInterval(() => {
-            currentTestimonial = (currentTestimonial + 1) % 3;
-            showTestimonial(currentTestimonial);
-        }, 5000);
-
-        // ========== TOAST ==========
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMsg').textContent = message;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
+        // ========== STICKY CORE HEADER UTILITIES ==========
+        function setupStickyNavbar() {
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if(window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
         }
 
-        // ========== SCROLL REVEAL ==========
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
+        // ========== INTERSECTION OBSERVABLE INTERACTION TRACKER ==========
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        window.observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
                 }
             });
         }, observerOptions);
+        document.querySelectorAll('.reveal').forEach(el => window.observer.observe(el));
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        // ========== TOAST MESSAGE SYSTEM NOTIFICATION PLUG ==========
+        function showToast(msg) {
+            const toast = document.getElementById('globalToast');
+            document.getElementById('toastMessage').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3500);
+        }
 
-        // ========== SMOOTH SCROLL ==========
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
-        // ========== CLOSE MODALS ON ESCAPE ==========
+        // ========== ACCESSIBILITY ESC KEYBOARD HANDLING SYSTEMS ==========
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeSearch();
@@ -2269,14 +2139,6 @@
                 closePayment();
                 if (document.getElementById('cartSidebar').classList.contains('open')) toggleCart();
             }
-        });
-
-        // ========== GALLERY LIGHTBOX ==========
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const img = this.querySelector('img').src;
-                window.open(`https://www.instagram.com/aurum.by.j`, '_blank');
-            });
         });
     </script>
 </body>
